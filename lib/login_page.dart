@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/controller/login_controller.dart';
+import 'widget/textfield.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(LoginApp());
 }
 
 class LoginApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login UI Sederhana',
-      home: LoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+  final LoginController controller = Get.find<LoginController>();
 
-class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +20,6 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Judul
               Text(
                 'Login',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
@@ -34,29 +27,22 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 40),
 
               // Username Field
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
-                ),
+              textfield(
+                hintText: "Username",
+                controller: controller.usernameController,
               ),
               SizedBox(height: 20),
 
               // Password Field
-              TextField(
+              textfield(
+                hintText: "Password",
+                controller: controller.passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
               ),
               SizedBox(height: 30),
 
-              // Tombol Login
               ElevatedButton(
-                onPressed: () {
-                  // Tidak ada logic
-                },
+                onPressed: controller.login,
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                 ),
