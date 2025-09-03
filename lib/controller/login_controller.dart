@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todolist/home_page.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
@@ -33,8 +34,7 @@ class LoginController extends GetxController {
         "Login berhasil",
         snackPosition: SnackPosition.BOTTOM,
       );
-      // contoh navigasi ke halaman berikut
-      // Get.offAll(() => HomePage());
+      Get.offAll(() => HomePage());
     } else {
       Get.snackbar(
         "Error",
