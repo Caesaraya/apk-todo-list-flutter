@@ -34,7 +34,7 @@ class LoginController extends GetxController {
         "Login berhasil",
         snackPosition: SnackPosition.BOTTOM,
       );
-      Get.offAll(() => HomePage());
+      Get.offAllNamed("/home");
     } else {
       Get.snackbar(
         "Error",

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todolist/bindings/login_binding.dart';
+import 'package:todolist/controller/login_controller.dart';
+import 'package:todolist/login_page.dart';
 import 'package:todolist/routes/pages.dart';
 import 'package:todolist/routes/routes.dart';
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       initialRoute: AppRoutes.login,
-      getPages: AppPages.pages,
+      getPages: AppPages.routes,
     );
   }
 }

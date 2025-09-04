@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/widgets/widget_button.dart';// Pastikan path-nya sesuai
+import 'package:todolist/widgets/widget_button.dart';
 
 class TodoItem extends StatelessWidget {
   final String title;
@@ -7,6 +7,7 @@ class TodoItem extends StatelessWidget {
   final String category;
   final bool isChecked;
   final VoidCallback onCheckChanged;
+  final VoidCallback onButtonPressed;
 
   const TodoItem({
     super.key,
@@ -15,6 +16,7 @@ class TodoItem extends StatelessWidget {
     required this.category,
     required this.isChecked,
     required this.onCheckChanged,
+    required this.onButtonPressed,
   });
 
   @override
@@ -22,24 +24,19 @@ class TodoItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Main Notes (Title)
         Text(title),
-
-        // Description
         Text(description),
-
-        // Category
         Text("Category: $category"),
-
-        // Check Button (as Checkbox for now)
         Row(
           children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (_) => onCheckChanged(),
-            ),
+            CustomButton(
+  icon: Icons.check, // ✅ tombol centang
+  textColor: Colors.green,
+  onPressed: onCheckChanged,
+),
           ],
         ),
+        const Divider(),
       ],
     );
   }
