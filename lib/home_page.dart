@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/todo_controller.dart';
-import 'package:todolist/history_page.dart';
 import 'package:todolist/models/todo_model.dart';
+import 'package:todolist/routes/routes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,113 +11,131 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodoController controller = Get.find<TodoController>();
-    
+
     return Scaffold(
+      backgroundColor: Colors.yellow[100], // 🌼 warna background lembut
       appBar: AppBar(
-        title: const Text('Todo List'),
-        actions: [
-          Obx(
-            () => IconButton(
-              icon: Stack(
-                children: [
-                  const Icon(Icons.history),
-                  if (controller.completedTodos.isNotEmpty)
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          '${controller.completedTodos.length}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              onPressed: () => Get.to(() => const HistoryPage()),
-            ),
-          ),
-        ],
+        title: const Text(
+          'Todo List',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
+        ),
+        backgroundColor: Colors.yellow[300],
+        elevation: 0,
+        centerTitle: true,
       ),
       body: Obx(() {
-        // Sort todos: completed at the bottom
         final sortedTodos = [...controller.todos];
         sortedTodos.sort((a, b) {
-          if (a.progress == TodoProgress.completed && b.progress != TodoProgress.completed) {
+          if (a.progress == TodoProgress.completed &&
+              b.progress != TodoProgress.completed) {
             return 1;
-          } else if (a.progress != TodoProgress.completed && b.progress == TodoProgress.completed) {
+          } else if (a.progress != TodoProgress.completed &&
+              b.progress == TodoProgress.completed) {
             return -1;
           }
           return 0;
         });
 
         if (sortedTodos.isEmpty) {
-          return const Center(child: Text('Tidak ada todo!'));
+          return const Center(
+            child: Text(
+              'Tidak ada todo!',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          );
         }
 
         return ListView.builder(
+          padding: const EdgeInsets.all(12),
           itemCount: sortedTodos.length,
           itemBuilder: (context, index) {
             final todo = sortedTodos[index];
-            return ListTile(
-              title: Text(todo.title),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(todo.description),
-                  Text('Category: ${todo.category}'),
-                  Text('Progress: ${_getProgressText(todo.progress)}'),
-                ],
+            return Card(
+              elevation: 4,
+              shadowColor: Colors.brown.withOpacity(0.3),
+              color: todo.progress == TodoProgress.completed
+                  ? Colors.green[100] // 🌿 jika selesai → hijau lembut
+                  : Colors.yellow[200], // 📝 default → kuning pastel
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Progress dropdown
-                  PopupMenuButton<TodoProgress>(
-                    icon: const Icon(Icons.more_vert),
-                    onSelected: (TodoProgress progress) {
-                      controller.updateProgress(todo.id, progress);
-                    },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<TodoProgress>>[
-                      const PopupMenuItem<TodoProgress>(
-                        value: TodoProgress.notStarted,
-                        child: Text('Belum Dikerjakan'),
-                      ),
-                      const PopupMenuItem<TodoProgress>(
-                        value: TodoProgress.inProgress,
-                        child: Text('Sedang Dikerjakan'),
-                      ),
-                      const PopupMenuItem<TodoProgress>(
-                        value: TodoProgress.completed,
-                        child: Text('Selesai'),
-                      ),
-                    ],
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                title: Text(
+                  todo.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    decoration: todo.progress == TodoProgress.completed
+                        ? TextDecoration.lineThrough
+                        : null,
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      controller.deleteTodo(todo.id);
-                    },
-                  ),
-                ],
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (todo.description.isNotEmpty) Text(todo.description),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Kategori: ${todo.category}',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    Text(
+                      'Progress: ${_getProgressText(todo.progress)}',
+                      style: TextStyle(
+                        color: todo.progress == TodoProgress.completed
+                            ? Colors.green[700]
+                            : Colors.brown,
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PopupMenuButton<TodoProgress>(
+                      icon: const Icon(Icons.more_vert, color: Colors.brown),
+                      onSelected: (progress) {
+                        controller.updateProgress(todo.id, progress);
+                      },
+                      itemBuilder: (context) => <PopupMenuEntry<TodoProgress>>[
+                        const PopupMenuItem(
+                          value: TodoProgress.notStarted,
+                          child: Text('Belum Dikerjakan'),
+                        ),
+                        const PopupMenuItem(
+                          value: TodoProgress.inProgress,
+                          child: Text('Sedang Dikerjakan'),
+                        ),
+                        const PopupMenuItem(
+                          value: TodoProgress.completed,
+                          child: Text('Selesai'),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
+                      onPressed: () {
+                        controller.deleteTodo(todo.id);
+                      },
+                    ),
+                  ],
+                ),
               ),
             );
           },
         );
       }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.yellow[700],
         onPressed: () {
-          Get.toNamed('/add');
+          Get.toNamed(AppRoutes.addTodo);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.brown),
       ),
     );
   }
