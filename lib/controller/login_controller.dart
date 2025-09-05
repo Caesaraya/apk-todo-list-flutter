@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todolist/home_page.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
@@ -16,14 +15,14 @@ class LoginController extends GetxController {
       Get.snackbar(
         "Error",
         "Username dan Password tidak boleh kosong",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
       return;
     }
 
     isLoading.value = true;
 
-    await Future.delayed(const Duration(seconds: 2)); // simulasi loading
+    await Future.delayed(const Duration(seconds: 1)); // simulasi loading
 
     isLoading.value = false;
 
@@ -32,14 +31,14 @@ class LoginController extends GetxController {
       Get.snackbar(
         "Success",
         "Login berhasil",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
-      Get.offAll(() => HomePage());
+      Get.offAllNamed("/dashboard");
     } else {
       Get.snackbar(
         "Error",
         "Username atau Password salah",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
     }
   }
