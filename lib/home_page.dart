@@ -52,10 +52,10 @@ class HomePage extends StatelessWidget {
             final todo = sortedTodos[index];
             return Card(
               elevation: 4,
-              shadowColor: Colors.brown.withOpacity(0.3),
+              shadowColor: Colors.brown.shade300,
               color: todo.progress == TodoProgress.completed
-                  ? Colors.green[100] // 🌿 jika selesai → hijau lembut
-                  : Colors.yellow[200], // 📝 default → kuning pastel
+                  ? Colors.green[100]
+                  : Colors.yellow[200],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

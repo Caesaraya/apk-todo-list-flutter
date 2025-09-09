@@ -17,15 +17,15 @@ class DashboardPage extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
-        backgroundColor: Colors.yellow[100], // 🌼 sticky note background
+        backgroundColor: Colors.yellow.shade100,
         body: pages[navController.currentIndex.value],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.yellow[300],
-          selectedItemColor: Colors.brown,
-          unselectedItemColor: Colors.brown.withOpacity(0.6),
+          backgroundColor: Colors.yellow.shade300,
           currentIndex: navController.currentIndex.value,
           onTap: (index) => navController.changeIndex(index),
           type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.brown,
+          unselectedItemColor: Colors.brown.shade300,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(

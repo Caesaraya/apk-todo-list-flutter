@@ -33,7 +33,7 @@ class LoginApp extends GetView<LoginController> {
                       CircleAvatar(
                         radius: 40,
                         backgroundColor: Colors.yellow[700],
-                        child: const Icon(
+                        child: Icon(
                           Icons.lock_outline,
                           size: 40,
                           color: Colors.white,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todolist/routes/routes.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
@@ -22,18 +23,17 @@ class LoginController extends GetxController {
 
     isLoading.value = true;
 
-    await Future.delayed(const Duration(seconds: 1)); // simulasi loading
+    await Future.delayed(const Duration(seconds: 1));
 
     isLoading.value = false;
 
-    // cek username & password secara manual (dummy login)
     if (username == "admin" && password == "123456") {
       Get.snackbar(
         "Success",
         "Login berhasil",
         snackPosition: SnackPosition.TOP,
       );
-      Get.offAllNamed("/dashboard");
+      Get.offAllNamed(AppRoutes.dashboard);
     } else {
       Get.snackbar(
         "Error",

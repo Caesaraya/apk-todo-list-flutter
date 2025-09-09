@@ -6,7 +6,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 sticky note background
+      backgroundColor: Colors.yellow[100],
       appBar: AppBar(
         title: const Text(
           "Profil",
@@ -22,9 +22,7 @@ class ProfilePage extends StatelessWidget {
           children: const [
             CircleAvatar(
               radius: 60,
-              backgroundImage: NetworkImage(
-                "https://i.pravatar.cc/300",
-              ), // avatar dummy
+              backgroundImage: AssetImage("asset/mesah.jpg"),
             ),
             SizedBox(height: 20),
             Text(

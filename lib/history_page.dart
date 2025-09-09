@@ -10,7 +10,7 @@ class HistoryPage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 sticky note background
+      backgroundColor: Colors.yellow[100],
       appBar: AppBar(
         title: const Text(
           'History',
@@ -37,8 +37,8 @@ class HistoryPage extends StatelessWidget {
             final todo = controller.completedTodos[index];
             return Card(
               elevation: 4,
-              shadowColor: Colors.brown.withOpacity(0.3),
-              color: Colors.green[100], // ✅ hijau lembut untuk history selesai
+              shadowColor: Colors.brown.shade300,
+              color: Colors.green[100],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
