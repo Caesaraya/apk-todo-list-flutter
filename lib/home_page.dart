@@ -14,15 +14,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.yellow[100], // 🌼 warna background lembut
-      appBar: AppBar(
-        title: const Text(
-          'Todo List',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
-        ),
-        backgroundColor: Colors.yellow[300],
-        elevation: 0,
-        centerTitle: true,
-      ),
+      appBar: AppBar(backgroundColor: Colors.yellow[100]),
       body: Obx(() {
         final sortedTodos = [...controller.todos];
         sortedTodos.sort((a, b) {
