@@ -11,7 +11,6 @@ class HistoryPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.yellow[100],
-      appBar: AppBar(backgroundColor: Colors.yellow[100]),
       body: Obx(() {
         if (controller.completedTodos.isEmpty) {
           return const Center(

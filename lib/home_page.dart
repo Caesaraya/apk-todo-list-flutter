@@ -13,8 +13,7 @@ class HomePage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 warna background lembut
-      appBar: AppBar(backgroundColor: Colors.yellow[100]),
+      backgroundColor: Colors.yellow[100],
       body: Obx(() {
         final sortedTodos = [...controller.todos];
         sortedTodos.sort((a, b) {
