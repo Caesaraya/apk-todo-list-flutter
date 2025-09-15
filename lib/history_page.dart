@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/todo_controller.dart';
+import 'package:intl/intl.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -57,7 +58,7 @@ class HistoryPage extends StatelessWidget {
                     ),
                     if (todo.completedAt != null)
                       Text(
-                        'Selesai pada: ${todo.completedAt}',
+                        'Selesai pada: ${DateFormat('dd MMMM yyyy, HH:mm').format(todo.completedAt!)}',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.brown,

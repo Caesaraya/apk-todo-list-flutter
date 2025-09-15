@@ -10,8 +10,5 @@ class NavBinding extends Bindings {
 
     // Controller untuk todo (digunakan HomePage & HistoryPage)
     Get.lazyPut<TodoController>(() => TodoController());
-
-    // Kalau Profile butuh controller, bisa tambahkan di sini juga
-    // Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }
