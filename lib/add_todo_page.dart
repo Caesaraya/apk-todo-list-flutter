@@ -1,4 +1,3 @@
-// pages/add_todo_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/todo_controller.dart';
@@ -12,7 +11,7 @@ class AddTodoPage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 background sticky note
+      backgroundColor: Colors.yellow[100],
       appBar: AppBar(
         title: const Text(
           'Tambah Todo',
@@ -25,7 +24,6 @@ class AddTodoPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          // ✅ biar tidak overflow
           child: Column(
             children: [
               // Judul Todo

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/models/todo_model.dart';
+import 'package:todolist/widgets/widget_button.dart';
 
 class TodoController extends GetxController {
   // Reactive lists menggunakan .obs
@@ -65,14 +66,74 @@ class TodoController extends GetxController {
     _todos.refresh(); // Refresh list untuk update UI
   }
 
-  // Method untuk menghapus todo
+  // Method untuk menghapus todo dengan konfirmasi sederhana
   void deleteTodo(String id) {
-    _todos.removeWhere((todo) => todo.id == id);
+    final todo = _todos.firstWhere((todo) => todo.id == id);
+    
+    Get.defaultDialog(
+      title: 'Hapus Todo',
+      middleText: 'Yakin ingin menghapus "${todo.title}"?',
+      textCancel: 'Batal',
+      textConfirm: 'Hapus',
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.red,
+      onConfirm: () {
+        _todos.removeWhere((todo) => todo.id == id);
+        Get.back();
+        Get.snackbar('Berhasil', 'Todo dihapus');
+      },
+    );
   }
 
-  // Method untuk menghapus todo dari history
+  // Method untuk menghapus todo dari history dengan konfirmasi sederhana
   void deleteFromHistory(String id) {
-    _todos.removeWhere((todo) => todo.id == id);
+    final todo = _todos.firstWhere((todo) => todo.id == id);
+    
+    Get.defaultDialog(
+      title: 'Hapus History',
+      middleText: 'Hapus "${todo.title}" dari history?',
+      textCancel: 'Batal',
+      textConfirm: 'Hapus',
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.red,
+      onConfirm: () {
+        _todos.removeWhere((todo) => todo.id == id);
+        Get.back();
+        Get.snackbar('Berhasil', 'History dihapus');
+      },
+    );
+  }
+
+  // Method konfirmasi delete dengan CustomButton - Versi Alternatif
+  void showDeleteDialog(String id, {bool isFromHistory = false}) {
+    final todo = _todos.firstWhere((todo) => todo.id == id);
+    
+    Get.dialog(
+      AlertDialog(
+        title: Text(isFromHistory ? 'Hapus History' : 'Hapus Todo'),
+        content: Text('Yakin ingin menghapus "${todo.title}"?'),
+        actions: [
+          CustomButton(
+            text: 'Batal',
+            textColor: Colors.grey,
+            onPressed: () => Get.back(),
+          ),
+          const SizedBox(width: 8),
+          CustomButton(
+            text: 'Hapus',
+            textColor: Colors.white,
+            onPressed: () {
+              _todos.removeWhere((todo) => todo.id == id);
+              Get.back();
+              Get.snackbar(
+                'Berhasil', 
+                isFromHistory ? 'History dihapus' : 'Todo dihapus',
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   // Method untuk edit todo

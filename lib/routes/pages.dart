@@ -25,7 +25,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.dashboard,
       page: () => DashboardPage(),
-      binding: NavBinding(), // ✅ cuma sekali binding
+      binding: NavBinding(),
       children: [
         GetPage(name: AppRoutes.home, page: () => HomePage()),
         GetPage(name: AppRoutes.history, page: () => HistoryPage()),

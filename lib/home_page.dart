@@ -13,16 +13,7 @@ class HomePage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 warna background lembut
-      appBar: AppBar(
-        title: const Text(
-          'Todo List',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
-        ),
-        backgroundColor: Colors.yellow[300],
-        elevation: 0,
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.yellow[100],
       body: Obx(() {
         final sortedTodos = [...controller.todos];
         sortedTodos.sort((a, b) {
@@ -52,10 +43,10 @@ class HomePage extends StatelessWidget {
             final todo = sortedTodos[index];
             return Card(
               elevation: 4,
-              shadowColor: Colors.brown.withOpacity(0.3),
+              shadowColor: Colors.brown.shade300,
               color: todo.progress == TodoProgress.completed
-                  ? Colors.green[100] // 🌿 jika selesai → hijau lembut
-                  : Colors.yellow[200], // 📝 default → kuning pastel
+                  ? Colors.green[100]
+                  : Colors.yellow[200],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

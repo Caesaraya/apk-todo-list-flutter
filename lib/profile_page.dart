@@ -6,51 +6,97 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 sticky note background
-      appBar: AppBar(
-        title: const Text(
-          "Profil",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
-        ),
-        backgroundColor: Colors.yellow[300],
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage(
-                "https://i.pravatar.cc/300",
-              ), // avatar dummy
+      backgroundColor: Colors.yellow[100],
+      body: ListView(
+        children: [
+          const SizedBox(height: 20),
+
+          Card(
+            color: Colors.yellow[50],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
-            SizedBox(height: 20),
-            Text(
-              "Mesah Ronila",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.brown,
+            elevation: 5,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage("asset/person.png"),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Caesaraya Junior Nugroho',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.brown,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          '11 PPLG 1 - 08',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              "Mesa@gmail.com",
-              style: TextStyle(fontSize: 16, color: Colors.black87),
+          ),
+
+          Card(
+            color: Colors.yellow[50],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
-            SizedBox(height: 8),
-            Text(
-              "Flutter Developer",
-              style: TextStyle(
-                fontSize: 16,
-                fontStyle: FontStyle.italic,
-                color: Colors.brown,
+            elevation: 5,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage("asset/person.png"),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Muhammad Zanadin Akbar',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.brown,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          '11 PPLG 1 - 25',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/todo_controller.dart';
+import 'package:intl/intl.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -10,16 +11,7 @@ class HistoryPage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      backgroundColor: Colors.yellow[100], // 🌼 sticky note background
-      appBar: AppBar(
-        title: const Text(
-          'History',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
-        ),
-        backgroundColor: Colors.yellow[300],
-        elevation: 0,
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.yellow[100],
       body: Obx(() {
         if (controller.completedTodos.isEmpty) {
           return const Center(
@@ -37,8 +29,8 @@ class HistoryPage extends StatelessWidget {
             final todo = controller.completedTodos[index];
             return Card(
               elevation: 4,
-              shadowColor: Colors.brown.withOpacity(0.3),
-              color: Colors.green[100], // ✅ hijau lembut untuk history selesai
+              shadowColor: Colors.brown.shade300,
+              color: Colors.green[100],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -66,7 +58,7 @@ class HistoryPage extends StatelessWidget {
                     ),
                     if (todo.completedAt != null)
                       Text(
-                        'Selesai pada: ${todo.completedAt}',
+                        'Selesai pada: ${DateFormat('dd MMMM yyyy, HH:mm').format(todo.completedAt!)}',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.brown,
