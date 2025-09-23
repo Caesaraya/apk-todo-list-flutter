@@ -4,13 +4,12 @@ import 'package:todolist/controller/login_controller.dart';
 import 'package:todolist/widgets/widget_textfield.dart';
 
 class LoginApp extends GetView<LoginController> {
-  LoginApp({super.key});
+  const LoginApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Hapus Container dengan BoxDecoration gradient
-      backgroundColor: Colors.yellow[100], // Ganti dengan warna polos
+      backgroundColor: Colors.yellow[100],
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -50,7 +49,7 @@ class LoginApp extends GetView<LoginController> {
                     const SizedBox(height: 30),
 
                     // Username Field
-                    textfield(
+                    CustomTextField(
                       hintText: "Username",
                       controller: controller.usernameController,
                       prefixIcon: Icons.person,
@@ -58,7 +57,7 @@ class LoginApp extends GetView<LoginController> {
                     const SizedBox(height: 20),
 
                     // Password Field
-                    textfield(
+                    CustomTextField(
                       hintText: "Password",
                       controller: controller.passwordController,
                       obscureText: true,

@@ -11,11 +11,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navController = Get.find<BottomNavController>();
-
-    // Daftar halaman
     final pages = const [HomePage(), HistoryPage(), ProfilePage()];
-
-    // Daftar judul sesuai halaman
     final titles = ["Home", "History", "Profile"];
 
     return Obx(
@@ -23,23 +19,32 @@ class DashboardPage extends StatelessWidget {
         backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
           title: Text(
-            titles[navController.currentIndex.value], // ✅ title dinamis
+            titles[navController.currentIndex.value],
             style: const TextStyle(color: Colors.brown),
           ),
           backgroundColor: Colors.yellow.shade300,
           iconTheme: const IconThemeData(color: Colors.brown),
         ),
         drawer: Drawer(
+          backgroundColor: Colors.yellow.shade50,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(color: Colors.yellow.shade300),
-                child: const Text(
-                  "Menu",
-                  style: TextStyle(color: Colors.brown, fontSize: 24),
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(color: Colors.yellow),
+                accountName: const Text(
+                  "Caesaraya",
+                  style: TextStyle(color: Colors.brown),
+                ),
+                accountEmail: const Text(
+                  "Zulzar@gmail.com",
+                  style: TextStyle(color: Colors.brown),
+                ),
+                currentAccountPicture: const CircleAvatar(
+                  backgroundImage: AssetImage("asset/person.png"),
                 ),
               ),
+
               ListTile(
                 leading: const Icon(Icons.home, color: Colors.brown),
                 title: const Text("Home"),

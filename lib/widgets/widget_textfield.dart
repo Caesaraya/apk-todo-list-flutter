@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class textfield extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String hintText;
   final IconData? prefixIcon;
   final bool obscureText;
   final TextEditingController controller;
   final TextInputType keyboardType;
 
-  const textfield({
-    Key? key,
+  const CustomTextField({
+    super.key,
     required this.hintText,
     this.prefixIcon,
     this.obscureText = false,
     required this.controller,
     this.keyboardType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

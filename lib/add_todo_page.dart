@@ -27,7 +27,7 @@ class AddTodoPage extends StatelessWidget {
           child: Column(
             children: [
               // Judul Todo
-              textfield(
+              CustomTextField(
                 hintText: 'Judul Todo',
                 controller: controller.titleController,
                 prefixIcon: Icons.title,
@@ -35,7 +35,7 @@ class AddTodoPage extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Deskripsi
-              textfield(
+              CustomTextField(
                 hintText: 'Deskripsi',
                 controller: controller.descriptionController,
                 prefixIcon: Icons.description,

@@ -4,22 +4,19 @@ import 'package:todolist/models/todo_model.dart';
 import 'package:todolist/widgets/widget_button.dart';
 
 class TodoController extends GetxController {
-  // Reactive lists menggunakan .obs
   final _todos = <Todo>[].obs;
 
-  // TextEditingControllers for the form
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
-  // Category options
   final List<String> categories = ['sekolah', 'keseharian', 'ekonomi'];
   String selectedCategory = 'sekolah';
 
-  // Getter untuk akses data
-  List<Todo> get todos => _todos.where((todo) => todo.progress != TodoProgress.completed).toList();
-  List<Todo> get completedTodos => _todos.where((todo) => todo.progress == TodoProgress.completed).toList();
+  List<Todo> get todos =>
+      _todos.where((todo) => todo.progress != TodoProgress.completed).toList();
+  List<Todo> get completedTodos =>
+      _todos.where((todo) => todo.progress == TodoProgress.completed).toList();
 
-  // Method untuk menambahkan todo baru
   void addTodo({
     required String title,
     required String description,
@@ -33,7 +30,6 @@ class TodoController extends GetxController {
     _todos.add(newTodo);
   }
 
-  // Method untuk menyimpan todo dari form
   void saveTodo() {
     if (titleController.text.isEmpty) {
       Get.snackbar('Error', 'Judul tidak boleh kosong');
@@ -46,30 +42,26 @@ class TodoController extends GetxController {
       category: selectedCategory,
     );
 
-    // Clear the form
     titleController.clear();
     descriptionController.clear();
-    
-    // Go back to the previous screen
+
     Get.back();
   }
 
-  // Method untuk mengubah progress todo
   void updateProgress(String id, TodoProgress progress) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
     todo.progress = progress;
-    
+
     if (progress == TodoProgress.completed) {
       todo.completedAt = DateTime.now();
     }
-    
-    _todos.refresh(); // Refresh list untuk update UI
+
+    _todos.refresh();
   }
 
-  // Method untuk menghapus todo dengan konfirmasi sederhana
   void deleteTodo(String id) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
-    
+
     Get.defaultDialog(
       title: 'Hapus Todo',
       middleText: 'Yakin ingin menghapus "${todo.title}"?',
@@ -85,10 +77,9 @@ class TodoController extends GetxController {
     );
   }
 
-  // Method untuk menghapus todo dari history dengan konfirmasi sederhana
   void deleteFromHistory(String id) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
-    
+
     Get.defaultDialog(
       title: 'Hapus History',
       middleText: 'Hapus "${todo.title}" dari history?',
@@ -104,10 +95,9 @@ class TodoController extends GetxController {
     );
   }
 
-  // Method konfirmasi delete dengan CustomButton - Versi Alternatif
   void showDeleteDialog(String id, {bool isFromHistory = false}) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
-    
+
     Get.dialog(
       AlertDialog(
         title: Text(isFromHistory ? 'Hapus History' : 'Hapus Todo'),
@@ -126,7 +116,7 @@ class TodoController extends GetxController {
               _todos.removeWhere((todo) => todo.id == id);
               Get.back();
               Get.snackbar(
-                'Berhasil', 
+                'Berhasil',
                 isFromHistory ? 'History dihapus' : 'Todo dihapus',
               );
             },
@@ -136,8 +126,8 @@ class TodoController extends GetxController {
     );
   }
 
-  // Method untuk edit todo
-  void editTodo(String id, {
+  void editTodo(
+    String id, {
     String? title,
     String? description,
     String? category,
