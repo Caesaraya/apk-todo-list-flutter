@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:todolist/add_todo_page.dart';
 import 'package:todolist/bindings/login_binding.dart';
 import 'package:todolist/bindings/nav_bindings.dart';
+import 'package:todolist/bindings/splashscreen_binding.dart';
 import 'package:todolist/bindings/todo_binding.dart';
 import 'package:todolist/dashboard_page.dart';
 import 'package:todolist/history_page.dart';
@@ -9,6 +10,7 @@ import 'package:todolist/home_page.dart';
 import 'package:todolist/login_page.dart';
 import 'package:todolist/profile_page.dart';
 import 'package:todolist/routes/routes.dart';
+import 'package:todolist/splashscreen_page.dart';
 
 class AppPages {
   static final routes = [
@@ -32,5 +34,10 @@ class AppPages {
         GetPage(name: AppRoutes.profile, page: () => ProfilePage()),
       ],
     ),
+    GetPage(
+      name: AppRoutes.splashscreen,
+      page: () => SplashscreenPage(),
+      binding: SplashscreenBinding()
+    )
   ];
 }

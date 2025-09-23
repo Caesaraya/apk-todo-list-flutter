@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/controller/profile_controller.dart';
+import 'package:todolist/widgets/widget_button.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+
+  final profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class ProfilePage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Caesaraya Junior Nugroho',
                           style: TextStyle(
@@ -60,21 +65,21 @@ class ProfilePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             elevation: 5,
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
                     backgroundImage: AssetImage("asset/person.png"),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Muhammad Zanadin Akbar',
                           style: TextStyle(
@@ -103,21 +108,21 @@ class ProfilePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             elevation: 5,
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
                     backgroundImage: AssetImage("asset/person.png"),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Zulfikar Azmi Fakhrudin',
                           style: TextStyle(
@@ -139,8 +144,13 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
+          CustomButton(
+            textColor: Colors.brown,
+            onPressed: profileController.logout
+          )
         ],
       ),
+      
     );
   }
 }

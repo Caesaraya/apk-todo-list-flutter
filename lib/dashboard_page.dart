@@ -11,11 +11,11 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navController = Get.find<BottomNavController>();
-    final pages = const [HomePage(), HistoryPage(), ProfilePage()];
+    final pages =  [HomePage(), HistoryPage(), ProfilePage()];
     final titles = ["Home", "History", "Profile"];
 
-    return Obx(
-      () => Scaffold(
+    return  Obx(
+      () =>Scaffold(
         backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
           title: Text(
