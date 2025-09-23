@@ -10,9 +10,13 @@ class SplashscreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.yellow[100],
       body: Center(
-        child: Container(
-          child: Text("Ini Splash Screen"),
+        child: Image.asset(
+          'asset/NOTE.png',
+          width: 150,
+          height: 150,
+          fit: BoxFit.contain,
         ),
       ),
     );

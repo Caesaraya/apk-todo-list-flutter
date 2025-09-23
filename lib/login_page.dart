@@ -4,7 +4,7 @@ import 'package:todolist/controller/login_controller.dart';
 import 'package:todolist/widgets/widget_button.dart';
 import 'package:todolist/widgets/widget_textfield.dart';
 
-class LoginApp extends StatelessWidget{
+class LoginApp extends StatelessWidget {
   LoginApp({super.key});
 
   final loginController = Get.find<LoginController>();
@@ -55,7 +55,7 @@ class LoginApp extends StatelessWidget{
                     ),
                     // Username Field
                     Container(
-                      margin: EdgeInsets.only(top: 10,bottom: 10),
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
                       child: CustomTextField(
                         hintText: "Username",
                         controller: loginController.usernameController,
@@ -64,7 +64,7 @@ class LoginApp extends StatelessWidget{
                     ),
                     // Password Field
                     Container(
-                      margin: EdgeInsets.only(top: 10,bottom: 10),
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
                       child: CustomTextField(
                         hintText: "Password",
                         controller: loginController.passwordController,
@@ -73,12 +73,12 @@ class LoginApp extends StatelessWidget{
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin: EdgeInsets.all(10),
                       child: CustomButton(
                         textColor: Colors.brown,
-                        onPressed: loginController.login
+                        onPressed: loginController.login,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
