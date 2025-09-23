@@ -30,10 +30,11 @@ class TodoItem extends StatelessWidget {
         Row(
           children: [
             CustomButton(
-  icon: Icons.check, // ✅ tombol centang
-  textColor: Colors.green,
-  onPressed: onCheckChanged,
-),
+              icon: Icons.check,
+              backgroundColor: Colors.white,
+              textColor: Colors.green,
+              onPressed: onCheckChanged,
+            ),
           ],
         ),
         const Divider(),

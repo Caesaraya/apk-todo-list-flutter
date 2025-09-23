@@ -105,11 +105,13 @@ class TodoController extends GetxController {
         actions: [
           CustomButton(
             text: 'Batal',
+            backgroundColor: Colors.white,
             textColor: Colors.grey,
             onPressed: () => Get.back(),
           ),
           const SizedBox(width: 8),
           CustomButton(
+            backgroundColor: Colors.red,
             text: 'Hapus',
             textColor: Colors.white,
             onPressed: () {

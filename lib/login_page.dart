@@ -73,9 +73,11 @@ class LoginApp extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
                       child: CustomButton(
-                        textColor: Colors.brown,
+                        text: "login",
+                        backgroundColor: Colors.brown,
+                        textColor: Colors.white,
                         onPressed: loginController.login,
                       ),
                     ),

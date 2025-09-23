@@ -144,13 +144,22 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          CustomButton(
-            textColor: Colors.brown,
-            onPressed: profileController.logout
-          )
+          const SizedBox(height: 20), // jarak sebelum tombol
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: SizedBox(
+              width: double.infinity, // tombol penuh lebar
+              child: CustomButton(
+                text: 'Logout', // Tambahkan teks
+                backgroundColor: Colors.brown,
+                textColor: Colors.white,
+                onPressed: profileController.logout,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20), // jarak setelah tombol
         ],
       ),
-      
     );
   }
 }
