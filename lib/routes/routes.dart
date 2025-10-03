@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const splashscreen = '/splashscreen';
   static const String login = '/login';
   static const String addTodo = '/add';
   static const dashboard = '/dashboard';
