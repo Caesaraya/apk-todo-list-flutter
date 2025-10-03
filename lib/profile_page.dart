@@ -48,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 08',
+                          '11 PPLG 1-08',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
@@ -91,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 25',
+                          '11 PPLG 1-25',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
@@ -134,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 37',
+                          '11 PPLG 1-37',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
