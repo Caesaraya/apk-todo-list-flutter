@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/nav_controller.dart';
-import 'package:todolist/home_page.dart';
+import 'package:todolist/pages/home_page.dart';
+import 'package:todolist/pages/mobile/mobile_home.dart';
 import 'package:todolist/history_page.dart';
 import 'package:todolist/profile_page.dart';
 

@@ -9,6 +9,8 @@ class TodoController extends GetxController {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
+  var isMobile = true.obs;
+
   final List<String> categories = ['sekolah', 'keseharian', 'ekonomi'];
   String selectedCategory = 'sekolah';
 
@@ -148,5 +150,8 @@ class TodoController extends GetxController {
     titleController.dispose();
     descriptionController.dispose();
     super.onClose();
+  }
+  void updateLayout(BoxConstraints constraint){
+    isMobile.value = constraint.maxWidth < 600;
   }
 }

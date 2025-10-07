@@ -4,13 +4,13 @@ import 'package:todolist/controller/todo_controller.dart';
 import 'package:todolist/models/todo_model.dart';
 import 'package:todolist/routes/routes.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MobileHomePage extends StatelessWidget {
+  MobileHomePage({super.key});
+  final controller = Get.find<TodoController>();
+
 
   @override
   Widget build(BuildContext context) {
-    final TodoController controller = Get.find<TodoController>();
-
     return Scaffold(
       backgroundColor: Colors.yellow[100],
       body: Obx(() {
