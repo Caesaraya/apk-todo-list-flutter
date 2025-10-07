@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String? text;       // Bisa null jika hanya icon
   final IconData? icon;     // Ikon opsional
-  final Color textColor;    // Warna teks/icon
+  final Color foregroundColor;    // Warna teks/icon
   final Color backgroundColor; // Warna latar belakang tombol
   final VoidCallback onPressed;
 
@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
     super.key,
     this.text,
     this.icon,
-    required this.textColor,
+    required this.foregroundColor,
     required this.backgroundColor,
     required this.onPressed,
   });
@@ -22,20 +22,20 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor, // warna background
-        foregroundColor: textColor,       // warna teks & icon default
+        foregroundColor: foregroundColor,       // warna teks & icon default
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 30,
           vertical: 12,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
       child: icon != null
           ? Icon(icon)
           : Text(
               text ?? '',
-              style: TextStyle(color: textColor),
+              style: TextStyle(color: foregroundColor,fontSize: 15),
             ),
     );
   }

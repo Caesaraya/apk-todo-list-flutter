@@ -152,7 +152,7 @@ class ProfilePage extends StatelessWidget {
               child: CustomButton(
                 text: 'Logout', // Tambahkan teks
                 backgroundColor: Colors.brown,
-                textColor: Colors.white10,
+                foregroundColor: Colors.white,
                 onPressed: profileController.logout,
               ),
             ),

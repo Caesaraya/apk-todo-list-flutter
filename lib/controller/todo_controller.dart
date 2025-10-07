@@ -106,14 +106,14 @@ class TodoController extends GetxController {
           CustomButton(
             text: 'Batal',
             backgroundColor: Colors.white,
-            textColor: Colors.grey,
+            foregroundColor: Colors.grey,
             onPressed: () => Get.back(),
           ),
           const SizedBox(width: 8),
           CustomButton(
             backgroundColor: Colors.red,
             text: 'Hapus',
-            textColor: Colors.white,
+            foregroundColor: Colors.white,
             onPressed: () {
               _todos.removeWhere((todo) => todo.id == id);
               Get.back();

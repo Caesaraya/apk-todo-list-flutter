@@ -7,7 +7,7 @@ import 'package:todolist/bindings/todo_binding.dart';
 import 'package:todolist/dashboard_page.dart';
 import 'package:todolist/history_page.dart';
 import 'package:todolist/home_page.dart';
-import 'package:todolist/login_page.dart';
+import 'package:todolist/pages/login_page.dart';
 import 'package:todolist/profile_page.dart';
 import 'package:todolist/routes/routes.dart';
 import 'package:todolist/splashscreen_page.dart';
@@ -16,7 +16,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: AppRoutes.login,
-      page: () => LoginApp(),
+      page: () => LoginPage(),
       binding: LoginBinding(),
     ),
     GetPage(
