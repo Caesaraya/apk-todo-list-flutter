@@ -16,7 +16,7 @@ class LoginController extends GetxController {
       Get.offAllNamed(AppRoutes.dashboard);
     }else{
       Get.snackbar("error", "incorrect username and  password");
-    }
+    } 
   }
 
   @override
