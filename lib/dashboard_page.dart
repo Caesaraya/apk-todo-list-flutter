@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:todolist/controller/nav_controller.dart';
 import 'package:todolist/pages/home_page.dart';
 import 'package:todolist/pages/mobile/mobile_home.dart';
-import 'package:todolist/history_page.dart';
-import 'package:todolist/profile_page.dart';
+import 'package:todolist/pages/history_page.dart';
+import 'package:todolist/pages/profile_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

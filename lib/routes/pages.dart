@@ -2,14 +2,15 @@ import 'package:get/get.dart';
 import 'package:todolist/add_todo_page.dart';
 import 'package:todolist/bindings/login_binding.dart';
 import 'package:todolist/bindings/nav_bindings.dart';
+import 'package:todolist/bindings/profile_binding.dart';
 import 'package:todolist/bindings/splashscreen_binding.dart';
 import 'package:todolist/bindings/todo_binding.dart';
 import 'package:todolist/dashboard_page.dart';
-import 'package:todolist/history_page.dart';
+import 'package:todolist/pages/history_page.dart';
 import 'package:todolist/pages/home_page.dart';
 import 'package:todolist/pages/mobile/mobile_home.dart';
 import 'package:todolist/pages/login_page.dart';
-import 'package:todolist/profile_page.dart';
+import 'package:todolist/pages/profile_page.dart';
 import 'package:todolist/routes/routes.dart';
 import 'package:todolist/splashscreen_page.dart';
 
@@ -32,13 +33,17 @@ class AppPages {
       children: [
         GetPage(name: AppRoutes.home, page: () => HomePage()),
         GetPage(name: AppRoutes.history, page: () => HistoryPage()),
-        GetPage(name: AppRoutes.profile, page: () => ProfilePage()),
+        GetPage(
+          name: AppRoutes.profile,
+          page: () => ProfilePage(),
+          binding: ProfileBinding(),
+        ),
       ],
     ),
     GetPage(
       name: AppRoutes.splashscreen,
       page: () => SplashscreenPage(),
-      binding: SplashscreenBinding()
-    )
+      binding: SplashscreenBinding(),
+    ),
   ];
 }

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:todolist/controller/todo_controller.dart';
 import 'package:intl/intl.dart';
 
-class HistoryPage extends StatelessWidget {
-  const HistoryPage({super.key});
+class MobileHistoryPage extends StatelessWidget {
+  const MobileHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {

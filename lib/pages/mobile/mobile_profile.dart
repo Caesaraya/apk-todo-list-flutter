@@ -3,8 +3,8 @@ import 'package:todolist/controller/profile_controller.dart';
 import 'package:todolist/widgets/widget_button.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class MobileProfilePage extends StatelessWidget {
+  MobileProfilePage({super.key});
 
   final profileController = Get.find<ProfileController>();
 

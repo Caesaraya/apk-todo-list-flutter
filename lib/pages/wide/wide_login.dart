@@ -7,7 +7,7 @@ import 'package:todolist/widgets/widget_textfield.dart';
 class WideLoginPage extends StatelessWidget {
   WideLoginPage({super.key});
 
-  final loginController = Get.find<LoginController>();
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +94,6 @@ class WideLoginPage extends StatelessWidget {
           ),
         ),
       ),
-    );;
+    );
   }
 }

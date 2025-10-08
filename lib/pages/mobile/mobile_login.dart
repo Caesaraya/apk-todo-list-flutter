@@ -7,7 +7,7 @@ import 'package:todolist/widgets/widget_textfield.dart';
 class MobileLoginPage extends StatelessWidget {
   MobileLoginPage({super.key});
 
-  final loginController = Get.find<LoginController>();
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class MobileLoginPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only( bottom: 10),
+                      margin: EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Silakan login untuk melanjutkan',
                         style: TextStyle(color: Colors.black54),

@@ -7,16 +7,21 @@ import 'package:todolist/pages/wide/wide_login.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final loginController = Get.find<LoginController>();
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(builder: (context, constraints) {
-        loginController.updateLayout(constraints);
-        return Obx(() => loginController.isMobile.value ? MobileLoginPage() : WideLoginPage());
-      },
-    ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          loginController.updateLayout(constraints);
+          return Obx(
+            () => loginController.isMobile.value
+                ? MobileLoginPage()
+                : WideLoginPage(),
+          );
+        },
+      ),
     );
   }
 }
