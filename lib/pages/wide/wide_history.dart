@@ -28,70 +28,73 @@ class WideHistoryPage extends StatelessWidget {
           itemCount: controller.completedTodos.length,
           itemBuilder: (context, index) {
             final todo = controller.completedTodos[index];
-            return Card(
-              elevation: 4,
-              shadowColor: Colors.brown.shade300,
-              color: Colors.green[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              child: Container(
-                width: 300,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+            return Container(
+              margin: EdgeInsets.all(40),
+              child: Card(
+                elevation: 4,
+                shadowColor: Colors.brown.shade300,
+                color: Colors.green[100],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                child: Container(
+                  width: 300,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              todo.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.redAccent),
+                            onPressed: () {
+                              controller.deleteFromHistory(todo.id);
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      if (todo.description.isNotEmpty)
                         Expanded(
                           child: Text(
-                            todo.title,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                            maxLines: 2,
+                            todo.description,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () {
-                            controller.deleteFromHistory(todo.id);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    if (todo.description.isNotEmpty)
-                      Expanded(
-                        child: Text(
-                          todo.description,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    const Spacer(),
-                    Text(
-                      'Kategori: ${todo.category}',
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    if (todo.completedAt != null)
+                      const Spacer(),
                       Text(
-                        'Selesai pada: ${DateFormat('dd MMM yyyy, HH:mm').format(todo.completedAt!)}',
+                        'Kategori: ${todo.category}',
                         style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.brown,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
                         ),
                       ),
-                  ],
+                      const SizedBox(height: 4),
+                      if (todo.completedAt != null)
+                        Text(
+                          'Selesai pada: ${DateFormat('dd MMM yyyy, HH:mm').format(todo.completedAt!)}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.brown,
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             );

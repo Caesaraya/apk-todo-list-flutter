@@ -17,31 +17,34 @@ class WideProfilePage extends StatelessWidget {
           const SizedBox(height: 20),
 
           Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              children: [
-                _buildProfileCard(
-                  name: 'Caesaraya Junior Nugroho',
-                  kelas: '11 PPLG 1-08',
-                ),
-                _buildProfileCard(
-                  name: 'Muhammad Zanadin Akbar',
-                  kelas: '11 PPLG 1-25',
-                ),
-                _buildProfileCard(
-                  name: 'Zulfikar Azmi Fakhrudin',
-                  kelas: '11 PPLG 1-37',
-                ),
-              ],
+            child: Container(
+              margin: EdgeInsets.only(left: 80),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                children: [
+                  _buildProfileCard(
+                    name: 'Caesaraya Junior Nugroho',
+                    kelas: '11 PPLG 1-08',
+                  ),
+                  _buildProfileCard(
+                    name: 'Muhammad Zanadin Akbar',
+                    kelas: '11 PPLG 1-25',
+                  ),
+                  _buildProfileCard(
+                    name: 'Zulfikar Azmi Fakhrudin',
+                    kelas: '11 PPLG 1-37',
+                  ),
+                ],
+              ),
             ),
           ),
 
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: SizedBox(
-              width: double.infinity,
+            child: Container(
+              width: 900,
               child: CustomButton(
                 text: 'Logout',
                 backgroundColor: Colors.brown,
