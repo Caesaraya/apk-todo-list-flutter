@@ -12,6 +12,7 @@ class WideHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.yellow[100]),
       backgroundColor: Colors.yellow[100],
       body: Obx(() {
         final sortedTodos = [...controller.todos];
@@ -35,114 +36,84 @@ class WideHomePage extends StatelessWidget {
         }
 
         return ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(12),
           itemCount: sortedTodos.length,
           itemBuilder: (context, index) {
             final todo = sortedTodos[index];
-            return Container(
-              margin: const EdgeInsets.all(40),
-              child: Card(
-                elevation: 4,
-                shadowColor: Colors.brown.shade300,
-                color: todo.progress == TodoProgress.completed
-                    ? Colors.green[100]
-                    : Colors.yellow[200],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            return Card(
+              elevation: 4,
+              shadowColor: Colors.brown.shade300,
+              color: todo.progress == TodoProgress.completed
+                  ? Colors.green[100]
+                  : Colors.yellow[200],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: ListTile(
+                key: ValueKey(todo.id),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
                 ),
-                child: Container(
-                  width: 350,
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Judul dan menu aksi
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              todo.title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                decoration:
-                                    todo.progress == TodoProgress.completed
-                                    ? TextDecoration.lineThrough
-                                    : null,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              PopupMenuButton<TodoProgress>(
-                                icon: const Icon(
-                                  Icons.more_vert,
-                                  color: Colors.brown,
-                                ),
-                                onSelected: (progress) async {
-                                  await controller.updateProgress(
-                                    todo.id!,
-                                    progress,
-                                  );
-                                },
-                                itemBuilder: (context) =>
-                                    const <PopupMenuEntry<TodoProgress>>[
-                                      PopupMenuItem(
-                                        value: TodoProgress.notStarted,
-                                        child: Text('Belum Dikerjakan'),
-                                      ),
-                                      PopupMenuItem(
-                                        value: TodoProgress.inProgress,
-                                        child: Text('Sedang Dikerjakan'),
-                                      ),
-                                      PopupMenuItem(
-                                        value: TodoProgress.completed,
-                                        child: Text('Selesai'),
-                                      ),
-                                    ],
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.redAccent,
-                                ),
-                                onPressed: () =>
-                                    controller.deleteTodo(todo.id!),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      if (todo.description.isNotEmpty)
-                        Text(
-                          todo.description,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Kategori: ${todo.category}',
-                        style: const TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: Colors.brown,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Progress: ${_getProgressText(todo.progress)}',
-                        style: TextStyle(
-                          color: todo.progress == TodoProgress.completed
-                              ? Colors.green[700]
-                              : Colors.brown,
-                        ),
-                      ),
-                    ],
+                title: Text(
+                  todo.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    decoration: todo.progress == TodoProgress.completed
+                        ? TextDecoration.lineThrough
+                        : null,
                   ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (todo.description.isNotEmpty) Text(todo.description),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Kategori: ${todo.category}',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    Text(
+                      'Progress: ${_getProgressText(todo.progress)}',
+                      style: TextStyle(
+                        color: todo.progress == TodoProgress.completed
+                            ? Colors.green[700]
+                            : Colors.brown,
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PopupMenuButton<TodoProgress>(
+                      icon: const Icon(Icons.more_vert, color: Colors.brown),
+                      onSelected: (progress) async {
+                        await controller.updateProgress(todo.id!, progress);
+                      },
+                      itemBuilder: (context) =>
+                          const <PopupMenuEntry<TodoProgress>>[
+                            PopupMenuItem(
+                              value: TodoProgress.notStarted,
+                              child: Text('Belum Dikerjakan'),
+                            ),
+                            PopupMenuItem(
+                              value: TodoProgress.inProgress,
+                              child: Text('Sedang Dikerjakan'),
+                            ),
+                            PopupMenuItem(
+                              value: TodoProgress.completed,
+                              child: Text('Selesai'),
+                            ),
+                          ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
+                      onPressed: () => controller.deleteTodo(todo.id!),
+                    ),
+                  ],
                 ),
               ),
             );
