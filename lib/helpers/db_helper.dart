@@ -114,7 +114,7 @@ class DBHelper {
   }
 
   // 🔹 DELETE
-  Future<int> deleteTodo(id) async {
+  Future<int> deleteTodo(int id) async {
     final client = await db;
     return await client.delete('todos', where: 'id = ?', whereArgs: [id]);
   }
@@ -134,7 +134,7 @@ class DBHelper {
 
   Future<List<Todo>> getHistory() async {
     final client = await db;
-    final maps = await client.query('history', orderBy: 'id DESC');
+    final maps = await client.query('history', orderBy: 'completedAt DESC');
     return maps.map((map) {
       return Todo(
         id: map['id'] as int,

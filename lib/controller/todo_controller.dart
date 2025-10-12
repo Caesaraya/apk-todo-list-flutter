@@ -3,30 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/models/todo_model.dart';
-import 'package:todolist/widgets/widget_button.dart';
-import 'package:todolist/helpers/db_helper.dart'; // pastikan path sesuai
+import 'package:todolist/helpers/db_helper.dart';
 
 class TodoController extends GetxController {
   final _todos = <Todo>[].obs;
-  final historyTodos = <Todo>[].obs;
+  final historyTodos = <Todo>[].obs; // ✅ ini yang digunakan UI
   final dbHelper = DBHelper();
 
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
   var isMobile = true.obs;
-
   final List<String> categories = ['sekolah', 'keseharian', 'ekonomi'];
   String selectedCategory = 'sekolah';
 
+  // =========================
+  // ===== CRUD SECTION =====
+  // =========================
+
   List<Todo> get todos =>
       _todos.where((todo) => todo.progress != TodoProgress.completed).toList();
-  List<Todo> get completedTodos =>
-      _todos.where((todo) => todo.progress == TodoProgress.completed).toList();
 
-  // 🔹 Load semua data dari database
-
-  // 🔹 Tambah todo ke database
+  // 🔹 Tambah Todo
   Future<void> addTodo({
     required String title,
     required String description,
@@ -37,11 +35,27 @@ class TodoController extends GetxController {
       description: description,
       category: category,
     );
-    await dbHelper.insertTodo(newTodo);
-    _todos.add(newTodo);
+
+    final insertedId = await dbHelper.insertTodo(newTodo);
+    final todoWithId = newTodo.copyWith(id: insertedId);
+    _todos.add(todoWithId);
+    await loadTodos(); // sync ulang
   }
 
-  // 🔹 Simpan todo dari form input
+  // 🔹 Load Todos
+  Future<void> loadTodos() async {
+    final todosFromDb = await dbHelper.getTodos();
+    _todos.assignAll(todosFromDb);
+  }
+
+  // 🔹 Load History (❗ gunakan historyTodos, bukan history)
+  Future<void> loadHistory() async {
+    final historyFromDb = await dbHelper.getHistory();
+    historyTodos.assignAll(historyFromDb);
+    print("✅ History loaded: ${historyFromDb.length} item");
+  }
+
+  // 🔹 Simpan Todo dari form
   Future<void> saveTodo() async {
     if (titleController.text.isEmpty) {
       Get.snackbar('Error', 'Judul tidak boleh kosong');
@@ -59,9 +73,11 @@ class TodoController extends GetxController {
     Get.back();
   }
 
-  // 🔹 Hapus todo (dari daftar aktif)
-  void deleteTodo(id) {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
+  // 🔹 Hapus Todo
+  void deleteTodo(int id) {
+    final todo = _todos.firstWhereOrNull((t) => t.id == id);
+    if (todo == null) return;
+
     Get.defaultDialog(
       title: 'Hapus Todo',
       middleText: 'Yakin ingin menghapus "${todo.title}"?',
@@ -71,78 +87,16 @@ class TodoController extends GetxController {
       buttonColor: Colors.red,
       onConfirm: () async {
         await dbHelper.deleteTodo(id);
-        _todos.removeWhere((todo) => todo.id == id);
+        _todos.removeWhere((t) => t.id == id);
         Get.back();
         Get.snackbar('Berhasil', 'Todo dihapus');
       },
     );
   }
 
-  void showDeleteDialog(id, {bool isFromHistory = false}) {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
-
-    Get.dialog(
-      AlertDialog(
-        title: Text(isFromHistory ? 'Hapus History' : 'Hapus Todo'),
-        content: Text('Yakin ingin menghapus "${todo.title}"?'),
-        actions: [
-          CustomButton(
-            text: 'Batal',
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.grey,
-            onPressed: () => Get.back(),
-          ),
-          const SizedBox(width: 8),
-          CustomButton(
-            backgroundColor: Colors.red,
-            text: 'Hapus',
-            foregroundColor: Colors.white,
-            onPressed: () async {
-              await dbHelper.deleteTodo(id);
-              _todos.removeWhere((todo) => todo.id == id);
-              Get.back();
-              Get.snackbar(
-                'Berhasil',
-                isFromHistory ? 'History dihapus' : 'Todo dihapus',
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  //  Edit todo (dan simpan ke database)
-  Future<void> editTodo(
-    int id, {
-    String? title,
-    String? description,
-    String? category,
-    TodoProgress? progress,
-  }) async {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
-    if (title != null) todo.title = title;
-    if (description != null) todo.description = description;
-    if (category != null) todo.category = category;
-    if (progress != null) todo.progress = progress;
-    await dbHelper.updateTodo(todo);
-    _todos.refresh();
-  }
-
-  // 🔹 Load semua data dari database
-  Future<void> fetchTodos() async {
-    final todosFromDb = await dbHelper.getTodos();
-    _todos.assignAll(todosFromDb);
-  }
-
-  Future<void> fetchHistory() async {
-    final historyFromDb = await dbHelper.getHistory();
-    historyTodos.assignAll(historyFromDb);
-  }
-
-  // 🔹 Update progress todo (update + pindahkan ke history kalau selesai)
-  Future<void> updateProgress(id, TodoProgress progress) async {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
+  // 🔹 Update Progress
+  Future<void> updateProgress(int id, TodoProgress progress) async {
+    final todo = _todos.firstWhere((t) => t.id == id);
     todo.progress = progress;
 
     if (progress == TodoProgress.completed) {
@@ -153,8 +107,7 @@ class TodoController extends GetxController {
       await dbHelper.deleteTodo(id);
 
       _todos.removeWhere((t) => t.id == id);
-      await fetchHistory(); // refresh history list
-      Get.snackbar('Selesai', 'Tugas dipindahkan ke riwayat');
+      await loadHistory(); // ✅ langsung refresh history
     } else {
       todo.completedAt = null;
       await dbHelper.updateTodo(todo);
@@ -163,17 +116,21 @@ class TodoController extends GetxController {
     _todos.refresh();
   }
 
-  // 🔹 Hapus dari history
-  void deleteFromHistory(int id) async {
+  // 🔹 Hapus dari History
+  Future<void> deleteFromHistory(int id) async {
     await dbHelper.deleteHistory(id);
-    historyTodos.removeWhere((todo) => todo.id == id);
+    historyTodos.removeWhere((t) => t.id == id);
     Get.snackbar('Berhasil', 'History dihapus');
   }
 
+  // =========================
+  // ===== Lifecycle =========
+  // =========================
   @override
   void onInit() {
     super.onInit();
-    fetchTodos(); // load data dari DB pas awal
+    loadTodos();
+    loadHistory(); // ✅ load dari database saat app dibuka
   }
 
   @override

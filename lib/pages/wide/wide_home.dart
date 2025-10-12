@@ -85,7 +85,7 @@ class WideHomePage extends StatelessWidget {
                                 ),
                                 onSelected: (progress) async {
                                   await controller.updateProgress(
-                                    todo.id,
+                                    todo.id!,
                                     progress,
                                   );
                                 },
@@ -110,7 +110,8 @@ class WideHomePage extends StatelessWidget {
                                   Icons.delete,
                                   color: Colors.redAccent,
                                 ),
-                                onPressed: () => controller.deleteTodo(todo.id),
+                                onPressed: () =>
+                                    controller.deleteTodo(todo.id!),
                               ),
                             ],
                           ),

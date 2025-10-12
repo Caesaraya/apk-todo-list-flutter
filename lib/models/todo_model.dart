@@ -1,7 +1,7 @@
 enum TodoProgress { notStarted, inProgress, completed }
 
 class Todo {
-  int? id;
+  final int? id;
   String title;
   String description;
   String category;
@@ -16,4 +16,21 @@ class Todo {
     this.progress = TodoProgress.notStarted,
     this.completedAt,
   });
+  Todo copyWith({
+    int? id,
+    String? title,
+    String? description,
+    String? category,
+    TodoProgress? progress,
+    DateTime? completedAt,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      progress: progress ?? this.progress,
+      completedAt: completedAt ?? this.completedAt,
+    );
+  }
 }

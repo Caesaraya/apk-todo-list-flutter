@@ -11,6 +11,7 @@ class MobileHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TodoController controller = Get.find<TodoController>();
 
+    controller.loadHistory(); // Memuat history saat halaman dibangun
     return Scaffold(
       appBar: AppBar(
         title: const Text(

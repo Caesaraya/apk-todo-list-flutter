@@ -51,6 +51,7 @@ class MobileHomePage extends StatelessWidget {
               ),
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
+                key: ValueKey(todo.id),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 12,
@@ -90,7 +91,7 @@ class MobileHomePage extends StatelessWidget {
                     PopupMenuButton<TodoProgress>(
                       icon: const Icon(Icons.more_vert, color: Colors.brown),
                       onSelected: (progress) async {
-                        await controller.updateProgress(todo.id, progress);
+                        await controller.updateProgress(todo.id!, progress);
                       },
                       itemBuilder: (context) =>
                           const <PopupMenuEntry<TodoProgress>>[
@@ -110,7 +111,7 @@ class MobileHomePage extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () => controller.deleteTodo(todo.id),
+                      onPressed: () => controller.deleteTodo(todo.id!),
                     ),
                   ],
                 ),
