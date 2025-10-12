@@ -12,19 +12,10 @@ class MobileHistoryPage extends StatelessWidget {
     final TodoController controller = Get.find<TodoController>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'History Tugas',
-          style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.yellow[200],
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.brown),
-      ),
       backgroundColor: Colors.yellow[100],
       body: Obx(() {
         final completedTodos = controller
-            .historyTodos; // 🔥 Ganti dari completedTodos ke historyTodos
+            .historyTodos; 
 
         if (completedTodos.isEmpty) {
           return const Center(
