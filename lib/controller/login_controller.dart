@@ -7,7 +7,8 @@ class LoginController extends GetxController {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  
+  var isMobile = true.obs;
+
 
   login() async {
     if (usernameController.text.toString() == "admin" && passwordController.text.toString() == "admin123") {
@@ -25,4 +26,10 @@ class LoginController extends GetxController {
     passwordController.dispose();
     super.onClose();
   }
+
+  void updateLayout(BoxConstraints constraint){
+    isMobile.value = constraint.maxWidth < 600;
+  }
+
+ 
 }

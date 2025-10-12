@@ -3,8 +3,8 @@ import 'package:todolist/controller/profile_controller.dart';
 import 'package:todolist/widgets/widget_button.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class MobileProfilePage extends StatelessWidget {
+  MobileProfilePage({super.key});
 
   final profileController = Get.find<ProfileController>();
 
@@ -48,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 08',
+                          '11 PPLG 1-08',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
@@ -91,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 25',
+                          '11 PPLG 1-25',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
@@ -134,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '11 PPLG 1 - 37',
+                          '11 PPLG 1-37',
                           style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ],
@@ -152,7 +152,7 @@ class ProfilePage extends StatelessWidget {
               child: CustomButton(
                 text: 'Logout', // Tambahkan teks
                 backgroundColor: Colors.brown,
-                textColor: Colors.white,
+                foregroundColor: Colors.white,
                 onPressed: profileController.logout,
               ),
             ),

@@ -4,10 +4,10 @@ import 'package:todolist/controller/login_controller.dart';
 import 'package:todolist/widgets/widget_button.dart';
 import 'package:todolist/widgets/widget_textfield.dart';
 
-class LoginApp extends StatelessWidget {
-  LoginApp({super.key});
+class MobileLoginPage extends StatelessWidget {
+  MobileLoginPage({super.key});
 
-  final loginController = Get.find<LoginController>();
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class LoginApp extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
+                      margin: EdgeInsets.only(top: 20, bottom: 15),
                       child: Text(
                         'Selamat Datang',
                         style: TextStyle(
@@ -47,7 +47,7 @@ class LoginApp extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin: EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Silakan login untuk melanjutkan',
                         style: TextStyle(color: Colors.black54),
@@ -73,11 +73,11 @@ class LoginApp extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin: EdgeInsets.only(top: 20),
                       child: CustomButton(
-                        text: "login",
+                        text: "Login",
                         backgroundColor: Colors.brown,
-                        textColor: Colors.white,
+                        foregroundColor: Colors.white,
                         onPressed: loginController.login,
                       ),
                     ),

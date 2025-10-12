@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:todolist/routes/routes.dart';
 
 class ProfileController extends GetxController {
+  var isMobile = true.obs;
+
   Future<void> logout() async {
     Get.defaultDialog(
       title: "Konfirmasi Logout",
@@ -21,5 +23,9 @@ class ProfileController extends GetxController {
         Get.offAllNamed(AppRoutes.login);
       },
     );
+  }
+
+  void updateLayout(BoxConstraints constraint) {
+    isMobile.value = constraint.maxWidth < 600;
   }
 }

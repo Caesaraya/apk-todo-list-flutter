@@ -1,7 +1,7 @@
 enum TodoProgress { notStarted, inProgress, completed }
 
 class Todo {
-  final String id;
+  int? id;
   String title;
   String description;
   String category;
@@ -9,11 +9,11 @@ class Todo {
   DateTime? completedAt;
 
   Todo({
-    String? id,
+    this.id,
     required this.title,
     required this.description,
     required this.category,
     this.progress = TodoProgress.notStarted,
     this.completedAt,
-  }) : id = id ?? DateTime.now().millisecondsSinceEpoch.toString();
+  });
 }

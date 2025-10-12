@@ -32,7 +32,7 @@ class TodoItem extends StatelessWidget {
             CustomButton(
               icon: Icons.check,
               backgroundColor: Colors.white,
-              textColor: Colors.green,
+              foregroundColor: Colors.green,
               onPressed: onCheckChanged,
             ),
           ],
