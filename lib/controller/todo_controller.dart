@@ -37,7 +37,9 @@ class TodoController extends GetxController {
       description: description,
       category: category,
     );
-    await dbHelper.insertTodo(newTodo);
+    final insertedId = await dbHelper.insertTodo(newTodo);
+    // simpan id yang dikembalikan oleh database ke objek todo
+    newTodo.id = insertedId;
     _todos.add(newTodo);
   }
 
