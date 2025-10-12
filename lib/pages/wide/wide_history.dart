@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todolist/controller/todo_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:todolist/controller/todo_controller.dart';
+import 'package:todolist/models/todo_model.dart';
 
 class WideHistoryPage extends StatelessWidget {
   const WideHistoryPage({super.key});
@@ -13,7 +14,9 @@ class WideHistoryPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.yellow[100],
       body: Obx(() {
-        if (controller.completedTodos.isEmpty) {
+        final completedTodos = controller.historyTodos; // ✅ pakai historyTodos
+
+        if (completedTodos.isEmpty) {
           return const Center(
             child: Text(
               'Tidak ada history!',
@@ -25,11 +28,11 @@ class WideHistoryPage extends StatelessWidget {
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.all(12),
-          itemCount: controller.completedTodos.length,
+          itemCount: completedTodos.length,
           itemBuilder: (context, index) {
-            final todo = controller.completedTodos[index];
+            final Todo todo = completedTodos[index];
             return Container(
-              margin: EdgeInsets.all(40),
+              margin: const EdgeInsets.all(40),
               child: Card(
                 elevation: 4,
                 shadowColor: Colors.brown.shade300,
@@ -44,6 +47,7 @@ class WideHistoryPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Judul dan tombol hapus
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -60,14 +64,22 @@ class WideHistoryPage extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.redAccent),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                            ),
                             onPressed: () {
-                              controller.deleteFromHistory(todo.id);
+                              controller.deleteFromHistory(
+                                todo.id!,
+                              ); // ✅ hapus sesuai ID
                             },
                           ),
                         ],
                       ),
+
                       const SizedBox(height: 8),
+
+                      // Deskripsi
                       if (todo.description.isNotEmpty)
                         Expanded(
                           child: Text(
@@ -75,8 +87,13 @@ class WideHistoryPage extends StatelessWidget {
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
-                        ),
+                        )
+                      else
+                        const Spacer(),
+
                       const Spacer(),
+
+                      // Kategori
                       Text(
                         'Kategori: ${todo.category}',
                         style: const TextStyle(
@@ -84,7 +101,10 @@ class WideHistoryPage extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
+
                       const SizedBox(height: 4),
+
+                      // Waktu selesai
                       if (todo.completedAt != null)
                         Text(
                           'Selesai pada: ${DateFormat('dd MMM yyyy, HH:mm').format(todo.completedAt!)}',

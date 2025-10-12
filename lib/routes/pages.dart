@@ -8,7 +8,6 @@ import 'package:todolist/bindings/todo_binding.dart';
 import 'package:todolist/dashboard_page.dart';
 import 'package:todolist/pages/history_page.dart';
 import 'package:todolist/pages/home_page.dart';
-import 'package:todolist/pages/mobile/mobile_home.dart';
 import 'package:todolist/pages/login_page.dart';
 import 'package:todolist/pages/profile_page.dart';
 import 'package:todolist/routes/routes.dart';

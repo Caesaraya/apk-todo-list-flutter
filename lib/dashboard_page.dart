@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/controller/nav_controller.dart';
 import 'package:todolist/pages/home_page.dart';
-import 'package:todolist/pages/mobile/mobile_home.dart';
 import 'package:todolist/pages/history_page.dart';
 import 'package:todolist/pages/profile_page.dart';
 
@@ -12,11 +11,11 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navController = Get.find<BottomNavController>();
-    final pages =  [HomePage(), HistoryPage(), ProfilePage()];
+    final pages = [HomePage(), HistoryPage(), ProfilePage()];
     final titles = ["Home", "History", "Profile"];
 
-    return  Obx(
-      () =>Scaffold(
+    return Obx(
+      () => Scaffold(
         backgroundColor: Colors.yellow.shade100,
         appBar: AppBar(
           title: Text(

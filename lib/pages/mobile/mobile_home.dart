@@ -6,23 +6,23 @@ import 'package:todolist/routes/routes.dart';
 
 class MobileHomePage extends StatelessWidget {
   MobileHomePage({super.key});
-  final controller = Get.find<TodoController>();
 
+  final controller = Get.find<TodoController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.yellow[100]),
       backgroundColor: Colors.yellow[100],
       body: Obx(() {
         final sortedTodos = [...controller.todos];
         sortedTodos.sort((a, b) {
           if (a.progress == TodoProgress.completed &&
-              b.progress != TodoProgress.completed) {
+              b.progress != TodoProgress.completed)
             return 1;
-          } else if (a.progress != TodoProgress.completed &&
-              b.progress == TodoProgress.completed) {
+          if (a.progress != TodoProgress.completed &&
+              b.progress == TodoProgress.completed)
             return -1;
-          }
           return 0;
         });
 
@@ -89,29 +89,28 @@ class MobileHomePage extends StatelessWidget {
                   children: [
                     PopupMenuButton<TodoProgress>(
                       icon: const Icon(Icons.more_vert, color: Colors.brown),
-                      onSelected: (progress) {
-                        controller.updateProgress(todo.id, progress);
+                      onSelected: (progress) async {
+                        await controller.updateProgress(todo.id, progress);
                       },
-                      itemBuilder: (context) => <PopupMenuEntry<TodoProgress>>[
-                        const PopupMenuItem(
-                          value: TodoProgress.notStarted,
-                          child: Text('Belum Dikerjakan'),
-                        ),
-                        const PopupMenuItem(
-                          value: TodoProgress.inProgress,
-                          child: Text('Sedang Dikerjakan'),
-                        ),
-                        const PopupMenuItem(
-                          value: TodoProgress.completed,
-                          child: Text('Selesai'),
-                        ),
-                      ],
+                      itemBuilder: (context) =>
+                          const <PopupMenuEntry<TodoProgress>>[
+                            PopupMenuItem(
+                              value: TodoProgress.notStarted,
+                              child: Text('Belum Dikerjakan'),
+                            ),
+                            PopupMenuItem(
+                              value: TodoProgress.inProgress,
+                              child: Text('Sedang Dikerjakan'),
+                            ),
+                            PopupMenuItem(
+                              value: TodoProgress.completed,
+                              child: Text('Selesai'),
+                            ),
+                          ],
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () {
-                        controller.deleteTodo(todo.id);
-                      },
+                      onPressed: () => controller.deleteTodo(todo.id),
                     ),
                   ],
                 ),
@@ -122,9 +121,7 @@ class MobileHomePage extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.yellow[700],
-        onPressed: () {
-          Get.toNamed(AppRoutes.addTodo);
-        },
+        onPressed: () => Get.toNamed(AppRoutes.addTodo),
         child: const Icon(Icons.add, color: Colors.brown),
       ),
     );

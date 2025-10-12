@@ -1,10 +1,15 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist/models/todo_model.dart';
 import 'package:todolist/widgets/widget_button.dart';
+import 'package:todolist/helpers/db_helper.dart'; // pastikan path sesuai
 
 class TodoController extends GetxController {
   final _todos = <Todo>[].obs;
+  final historyTodos = <Todo>[].obs;
+  final dbHelper = DBHelper();
 
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -19,26 +24,31 @@ class TodoController extends GetxController {
   List<Todo> get completedTodos =>
       _todos.where((todo) => todo.progress == TodoProgress.completed).toList();
 
-  void addTodo({
+  // 🔹 Load semua data dari database
+
+  // 🔹 Tambah todo ke database
+  Future<void> addTodo({
     required String title,
     required String description,
     required String category,
-  }) {
+  }) async {
     final newTodo = Todo(
       title: title,
       description: description,
       category: category,
     );
+    await dbHelper.insertTodo(newTodo);
     _todos.add(newTodo);
   }
 
-  void saveTodo() {
+  // 🔹 Simpan todo dari form input
+  Future<void> saveTodo() async {
     if (titleController.text.isEmpty) {
       Get.snackbar('Error', 'Judul tidak boleh kosong');
       return;
     }
 
-    addTodo(
+    await addTodo(
       title: titleController.text,
       description: descriptionController.text,
       category: selectedCategory,
@@ -46,24 +56,12 @@ class TodoController extends GetxController {
 
     titleController.clear();
     descriptionController.clear();
-
     Get.back();
   }
 
-  void updateProgress(String id, TodoProgress progress) {
+  // 🔹 Hapus todo (dari daftar aktif)
+  void deleteTodo(id) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
-    todo.progress = progress;
-
-    if (progress == TodoProgress.completed) {
-      todo.completedAt = DateTime.now();
-    }
-
-    _todos.refresh();
-  }
-
-  void deleteTodo(String id) {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
-
     Get.defaultDialog(
       title: 'Hapus Todo',
       middleText: 'Yakin ingin menghapus "${todo.title}"?',
@@ -71,7 +69,8 @@ class TodoController extends GetxController {
       textConfirm: 'Hapus',
       confirmTextColor: Colors.white,
       buttonColor: Colors.red,
-      onConfirm: () {
+      onConfirm: () async {
+        await dbHelper.deleteTodo(id);
         _todos.removeWhere((todo) => todo.id == id);
         Get.back();
         Get.snackbar('Berhasil', 'Todo dihapus');
@@ -79,25 +78,7 @@ class TodoController extends GetxController {
     );
   }
 
-  void deleteFromHistory(String id) {
-    final todo = _todos.firstWhere((todo) => todo.id == id);
-
-    Get.defaultDialog(
-      title: 'Hapus History',
-      middleText: 'Hapus "${todo.title}" dari history?',
-      textCancel: 'Batal',
-      textConfirm: 'Hapus',
-      confirmTextColor: Colors.white,
-      buttonColor: Colors.red,
-      onConfirm: () {
-        _todos.removeWhere((todo) => todo.id == id);
-        Get.back();
-        Get.snackbar('Berhasil', 'History dihapus');
-      },
-    );
-  }
-
-  void showDeleteDialog(String id, {bool isFromHistory = false}) {
+  void showDeleteDialog(id, {bool isFromHistory = false}) {
     final todo = _todos.firstWhere((todo) => todo.id == id);
 
     Get.dialog(
@@ -116,7 +97,8 @@ class TodoController extends GetxController {
             backgroundColor: Colors.red,
             text: 'Hapus',
             foregroundColor: Colors.white,
-            onPressed: () {
+            onPressed: () async {
+              await dbHelper.deleteTodo(id);
               _todos.removeWhere((todo) => todo.id == id);
               Get.back();
               Get.snackbar(
@@ -130,19 +112,68 @@ class TodoController extends GetxController {
     );
   }
 
-  void editTodo(
-    String id, {
+  //  Edit todo (dan simpan ke database)
+  Future<void> editTodo(
+    int id, {
     String? title,
     String? description,
     String? category,
     TodoProgress? progress,
-  }) {
+  }) async {
     final todo = _todos.firstWhere((todo) => todo.id == id);
     if (title != null) todo.title = title;
     if (description != null) todo.description = description;
     if (category != null) todo.category = category;
     if (progress != null) todo.progress = progress;
-    _todos.refresh(); // Refresh list untuk update UI
+    await dbHelper.updateTodo(todo);
+    _todos.refresh();
+  }
+
+  // 🔹 Load semua data dari database
+  Future<void> fetchTodos() async {
+    final todosFromDb = await dbHelper.getTodos();
+    _todos.assignAll(todosFromDb);
+  }
+
+  Future<void> fetchHistory() async {
+    final historyFromDb = await dbHelper.getHistory();
+    historyTodos.assignAll(historyFromDb);
+  }
+
+  // 🔹 Update progress todo (update + pindahkan ke history kalau selesai)
+  Future<void> updateProgress(id, TodoProgress progress) async {
+    final todo = _todos.firstWhere((todo) => todo.id == id);
+    todo.progress = progress;
+
+    if (progress == TodoProgress.completed) {
+      todo.completedAt = DateTime.now();
+
+      // simpan ke history & hapus dari todos
+      await dbHelper.insertHistory(todo);
+      await dbHelper.deleteTodo(id);
+
+      _todos.removeWhere((t) => t.id == id);
+      await fetchHistory(); // refresh history list
+      Get.snackbar('Selesai', 'Tugas dipindahkan ke riwayat');
+    } else {
+      todo.completedAt = null;
+      await dbHelper.updateTodo(todo);
+    }
+
+    _todos.refresh();
+  }
+
+  // 🔹 Hapus dari history
+  void deleteFromHistory(int id) async {
+    await dbHelper.deleteHistory(id);
+    historyTodos.removeWhere((todo) => todo.id == id);
+    Get.snackbar('Berhasil', 'History dihapus');
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchTodos(); // load data dari DB pas awal
   }
 
   @override
@@ -151,7 +182,8 @@ class TodoController extends GetxController {
     descriptionController.dispose();
     super.onClose();
   }
-  void updateLayout(BoxConstraints constraint){
+
+  void updateLayout(BoxConstraints constraint) {
     isMobile.value = constraint.maxWidth < 600;
   }
 }
