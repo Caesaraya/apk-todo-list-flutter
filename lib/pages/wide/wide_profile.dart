@@ -10,48 +10,56 @@ class WideProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.yellow[100],
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
 
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              children: [
-                _buildProfileCard(
-                  name: 'Caesaraya Junior Nugroho',
-                  kelas: '11 PPLG 1-08',
-                ),
-                _buildProfileCard(
-                  name: 'Muhammad Zanadin Akbar',
-                  kelas: '11 PPLG 1-25',
-                ),
-                _buildProfileCard(
-                  name: 'Zulfikar Azmi Fakhrudin',
-                  kelas: '11 PPLG 1-37',
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: CustomButton(
-                text: 'Logout',
-                backgroundColor: Colors.brown,
-                foregroundColor: Colors.white,
-                onPressed: profileController.logout,
+            // Use a fixed proportion of the screen height for the horizontal list
+            SizedBox(
+              height: mq.height * 0.54,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                children: [
+                  _buildProfileCard(
+                    name: 'Caesaraya Junior Nugroho',
+                    kelas: '11 PPLG 1-08',
+                  ),
+                  _buildProfileCard(
+                    name: 'Muhammad Zanadin Akbar',
+                    kelas: '11 PPLG 1-25',
+                  ),
+                  _buildProfileCard(
+                    name: 'Zulfikar Azmi Fakhrudin',
+                    kelas: '11 PPLG 1-37',
+                  ),
+                ],
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+
+            const SizedBox(height: 6),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Logout',
+                  backgroundColor: Colors.brown,
+                  foregroundColor: Colors.white,
+                  onPressed: profileController.logout,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 6),
+          ],
+        ),
       ),
     );
   }
@@ -64,15 +72,16 @@ class WideProfilePage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         width: 280,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircleAvatar(
-              radius: 50,
+              radius: 32,
               backgroundImage: AssetImage("asset/person.png"),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
+
             Text(
               name,
               style: const TextStyle(
